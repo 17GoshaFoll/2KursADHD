@@ -1,49 +1,84 @@
 import 'dart:io';
 
-class Task{
-  late String name;
-  late int date;
-  late int priority;
-  late String category;
-  late int timeToTask;
-  late String description;
-  late List<File> attachments;
-  late bool ready;
-  Task(String name, int date, int priority, String category, int timeToTask, String description, List<File> attachment){
-    this.name = name;
-    this.date = date;
-    this.priority = priority;
-    this.category = category;
-    this.timeToTask = timeToTask;
-    this.description = description;
-    this.attachment = attachment;
-    ready = false;
-  }
-  
-  set attachment(List<File> attachment) {}
+class Task {
+  late String _name;
+  late DateTime _date;
+  late int _priority;
+  late String _category;
+  late int _timeToTask;
+  late String _description;
+  late List<File> _attachments;
+  late bool _ready;
 
-  setName(String name){
-    this.name = name;
-  }
+  Task(
+    this._name,
+    this._date,
+    this._priority,
+    this._category,
+    this._timeToTask,
+    this._description,
+    this._attachments, {
+    bool ready = false,
+  }) : _ready = ready;
 
-  setDate(int date){
-    this.date = date;
-  }
 
-  setPriority(int priority){
-    this.priority = priority;
-  }
+  String get name => _name;
+  DateTime get date => _date;
+  int get priority => _priority;
+  String get category => _category;
+  int get timeToTask => _timeToTask;
+  String get description => _description;
+  List<File> get attachments => _attachments;
+  bool get ready => _ready;
 
-  setCategory(String category){
-    this.category = category;
-  }
-
-  setTimeToTask(int timeToTask){
-    this.timeToTask = timeToTask;
+  set name(String name) {
+    if (name.isEmpty) {
+      throw ArgumentError("Task name cannot be empty");
+    }
+    _name = name;
   }
 
-  setDescription(String description){
-    this.description = description;
+  set date(DateTime date) {
+    _date = date;
+  }
+
+  set priority(int priority) {
+    if (priority < 1 || priority > 5) {
+      throw ArgumentError("Priority should be between 1 and 5");
+    }
+    _priority = priority;
+  }
+
+  set category(String category) {
+    if (category.isEmpty) {
+      throw ArgumentError("Category cannot be empty");
+    }
+    _category = category;
+  }
+
+  set timeToTask(int timeToTask) {
+    if (timeToTask <= 0) {
+      throw ArgumentError("Time to task should be greater than zero");
+    }
+    _timeToTask = timeToTask;
+  }
+
+  set description(String description) {
+    if (description.isEmpty) {
+      throw ArgumentError("Description cannot be empty");
+    }
+    _description = description;
+  }
+
+  set attachments(List<File> attachments) {
+    if (attachments.isEmpty) {
+      throw ArgumentError("Attachments cannot be empty");
+    }
+    _attachments = attachments;
+  }
+
+  set ready(bool ready) {
+    _ready = ready;
   }
 
   addAttachments(File attachment){
