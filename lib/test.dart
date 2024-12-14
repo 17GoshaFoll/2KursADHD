@@ -35,4 +35,7 @@ class test{
     if (resultPoint() >=41 && resultPoint() <= 60) return "Умеренная вероятность наличия СДВГ.";
     return "Высокая вероятность наличия  СДВГ.";
   }
+  String getQuestion(int number){
+    return questions[number + 1];
+  }
 }
